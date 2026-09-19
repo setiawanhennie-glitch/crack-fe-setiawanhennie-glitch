@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito, Baloo_2 } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "@/components/UI/toast";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${nunito.variable} ${baloo.variable} antialiased`}
       >
-        {children}
+        <ToastProvider>{children}</ToastProvider>
 
         <script
           dangerouslySetInnerHTML={{

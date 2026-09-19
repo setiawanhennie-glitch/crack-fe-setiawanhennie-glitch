@@ -17,6 +17,7 @@ import {
   updateMySchool,
   regenerateSchoolCode,
 } from "@/lib/auth-client";
+import { useToast } from "@/components/UI/toast";
 
 const defaultSettings = {
   schoolName: "SMA 1 Jakarta",
@@ -125,6 +126,7 @@ function TextField({
 /* ---------- Page ---------- */
 
 export default function AdminSettingsPage() {
+  const { toast } = useToast();
   const [settings, setSettings] = useState<SettingsType>(defaultSettings);
   const [saved, setSaved] = useState(false);
   const [schoolCode, setSchoolCode] = useState("");
@@ -213,7 +215,7 @@ export default function AdminSettingsPage() {
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(schoolCode);
-                      alert("Kode disalin!");
+                      toast("Kode disalin!", "success");
                     }}
                     title="Salin kode"
                     className="rounded-lg border border-border p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -227,7 +229,7 @@ export default function AdminSettingsPage() {
                           const s = await regenerateSchoolCode();
                           setSchoolCode(s.code);
                         } catch (e: any) {
-                          alert("Gagal: " + e.message + " — pastikan data Sekolah ada dan namanya sama persis dengan akun admin.");
+                          toast("Gagal: " + e.message + " — pastikan data Sekolah ada dan namanya sama persis dengan akun admin.", "error");
                         }
                       }}
                     title="Buat kode baru"

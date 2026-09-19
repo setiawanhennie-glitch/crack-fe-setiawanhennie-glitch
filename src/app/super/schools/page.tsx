@@ -18,6 +18,7 @@ import {
   addSchoolAdmin,
   toggleAdminSuspend,
 } from "@/lib/auth-client";
+import { useToast } from "@/components/UI/toast";
 
 const emptyOnboard = {
   schoolName: "",
@@ -30,6 +31,7 @@ const emptyOnboard = {
 };
 
 export default function SuperSchoolsPage() {
+  const { toast } = useToast();
   const [schools, setSchools] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -129,7 +131,7 @@ export default function SuperSchoolsPage() {
       await toggleAdminSuspend(admin.id, !admin.isSuspended);
       await openAdmins(adminsSchool);
     } catch (e: any) {
-      alert(e.message);
+      toast(e.message, "error");
     }
   };
 

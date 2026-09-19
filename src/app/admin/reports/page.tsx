@@ -10,6 +10,7 @@ import {
   UserCircle,
 } from "lucide-react";
 import { fetchModerationStats, fetchOpenReports, fetchModerationHistory, resolveReport } from "@/lib/auth-client";
+import { useToast } from "@/components/UI/toast";
 
 type Report = {
   id: string;
@@ -54,6 +55,7 @@ function timeAgo(dateString: string) {
 }
 
 export default function AdminReportsPage() {
+  const { toast } = useToast();
   const [stats, setStats] = useState<any>(null);
   const [openReports, setOpenReports] = useState<Report[]>([]);
   const [history, setHistory] = useState<Report[]>([]);
@@ -89,7 +91,7 @@ export default function AdminReportsPage() {
       await resolveReport(reportId, action);
       await loadData();
     } catch (error: any) {
-      alert(error.message);
+      toast(error.message, "error");
     } finally {
       setProcessing(null);
     }

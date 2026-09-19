@@ -34,6 +34,7 @@ import {
   fetchQuizForEdit,
   updateQuiz,
 } from "@/lib/auth-client";
+import { useToast } from "@/components/UI/toast";
 
 const EMOJIS = ["🔢", "🔬", "📚", "🌍", "💻", "🏛️", "⚽"];
 const COLORS = [
@@ -46,6 +47,7 @@ const COLORS = [
 ];
 
 export default function TeacherMaterialsPage() {
+  const { toast } = useToast();
   const [courses, setCourses] = useState<any[]>([]);
   const [expanded, setExpanded] = useState<string | null>(null);
 
@@ -229,7 +231,7 @@ export default function TeacherMaterialsPage() {
       await deleteQuiz(id);
       await loadQuizzes();
     } catch (e: any) {
-      alert(e.message);
+      toast(e.message, "error");
     }
   };
 
@@ -240,7 +242,7 @@ export default function TeacherMaterialsPage() {
       await load();
       await loadQuizzes();
     } catch (e: any) {
-      alert(e.message);
+      toast(e.message, "error");
     }
   };
 
@@ -250,7 +252,7 @@ export default function TeacherMaterialsPage() {
       await deleteLesson(id);
       await load();
     } catch (e: any) {
-      alert(e.message);
+      toast(e.message, "error");
     }
   };
 
@@ -1219,7 +1221,7 @@ export default function TeacherMaterialsPage() {
                     setAssignOpen(null);
                     await load();
                   } catch (e: any) {
-                    alert(e.message);
+                    toast(e.message, "error");
                   } finally {
                     setAssignSaving(false);
                   }

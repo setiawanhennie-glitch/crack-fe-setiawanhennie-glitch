@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/UI/button";
 import { X, Heart, Zap, Check, X as XIcon, Trophy, ArrowUp, ArrowDown, Timer, Play, BookOpenCheck, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/UI/toast";
 import {
   fetchStudentLesson,
   fetchQuizForPlay,
@@ -39,6 +40,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export default function StudentLessonPage() {
+  const { toast } = useToast();
   const router = useRouter();
   const [lessonId, setLessonId] = useState<string | null>(null);
   const [lesson, setLesson] = useState<any>(null);
@@ -127,7 +129,7 @@ export default function StudentLessonPage() {
       ]);
       if (!res.correct && hearts != null) setHearts((h) => (h != null ? h - 1 : null));
     } catch (e: any) {
-      alert(e.message);
+      toast(e.message, "error");
     } finally {
       setBusy(false);
     }
@@ -147,7 +149,7 @@ export default function StudentLessonPage() {
         setResult(res);
         setMode("results");
       } catch (e: any) {
-        alert(e.message);
+        toast(e.message, "error");
       } finally {
         setBusy(false);
       }

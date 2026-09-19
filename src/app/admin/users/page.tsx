@@ -21,6 +21,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "@/components/UI/toast";
 
 type User = {
   id: string;
@@ -41,6 +42,7 @@ const roleConfig = {
 };
 
 export default function AdminUsersPage() {
+  const { toast } = useToast();
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -69,7 +71,7 @@ export default function AdminUsersPage() {
       await updateUserRole(userId, role);
       await loadUsers();
     } catch (err: any) {
-      alert(err.message);
+      toast(err.message, "error");
     }
   };
 
@@ -78,7 +80,7 @@ export default function AdminUsersPage() {
       await toggleUserSuspend(userId, suspend);
       await loadUsers();
     } catch (err: any) {
-      alert(err.message);
+      toast(err.message, "error");
     }
   };
 
