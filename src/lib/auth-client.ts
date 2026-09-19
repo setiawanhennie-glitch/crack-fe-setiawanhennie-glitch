@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3001/auth';
+const API_URL_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = `${API_URL_BASE}/auth`;
 
 export interface RegisterData {
   name: string;
@@ -89,7 +90,6 @@ export function getToken() {
 }
 
 // Base URL for non-auth endpoints (users, etc.)
-const API_URL_BASE = 'http://localhost:3001';
 
 export async function fetchUsers() {
   const token = getToken();

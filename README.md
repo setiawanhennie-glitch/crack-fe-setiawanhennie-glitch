@@ -25,7 +25,9 @@ The frontend is built with Next.js App Router, React, TypeScript, Tailwind CSS, 
 - npm
 - The NusaSkillz API service running at `http://localhost:3001`
 
-The frontend currently uses a fixed local API URL in `src/lib/auth-client.ts`. Start the API service before testing registration, sign-in, or authenticated dashboard features.
+Start the API service before testing registration, sign-in, or authenticated dashboard features.
+
+The API URL can be configured with the `NEXT_PUBLIC_API_URL` environment variable. If it is not set, the frontend uses `http://localhost:3001`.
 ## Getting Started
 
 Install the dependencies:
@@ -34,13 +36,19 @@ Install the dependencies:
 npm install
 ```
 
+Create a `.env.local` file when the API is running somewhere other than the default local URL:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
 Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Open the frontend at [http://localhost:3000](http://localhost:3000). For access to the full application, make sure the backend is also available at [http://localhost:3001](http://localhost:3001).
+Open the frontend at [http://localhost:3000](http://localhost:3000). For access to the full application, make sure the backend is available at the URL configured in `NEXT_PUBLIC_API_URL`.
 
 ## Available Scripts
 
@@ -63,7 +71,7 @@ Protected routes require a valid authentication token. The middleware redirects 
 
 ## Frontend
 
-Run the frontend locally at [http://localhost:3000](http://localhost:3000). It is also available online in https://crack-fe-setiawanhennie-glitch-768jug6g8-hennie-s-projects.vercel.app/
+Run the frontend locally at [http://localhost:3000](http://localhost:3000). It is also available online at [the NusaSkillz frontend deployment](https://crack-fe-setiawanhennie-glitch-768jug6g8-hennie-s-projects.vercel.app/).
 
 ## Screenshots
 
@@ -102,7 +110,7 @@ npm run build
 npm run start
 ```
 
-Before deployment, configure the API URL for the target environment in `src/lib/auth-client.ts` and ensure the backend allows requests from the deployed frontend origin.
+Before deployment, set `NEXT_PUBLIC_API_URL` to the API URL for the target environment in the hosting provider's environment variables. Do not edit `src/lib/auth-client.ts` for deployment configuration. Ensure the backend allows requests from the deployed frontend origin.
 
 ## Learn More
 
