@@ -13,6 +13,13 @@ The frontend is built with Next.js App Router, React, TypeScript, Tailwind CSS, 
 - Responsive interface with light and dark themes
 - Route protection and role-based redirects through Next.js middleware
 
+## Tech Stack
+- Next.js 16 with the App Router
+- React 19 and TypeScript
+- Tailwind CSS 4
+- Lucide React for icons
+- ESLint and Next.js production tooling
+
 ## Requirements
 - Node.js 20 or newer
 - npm
@@ -28,7 +35,12 @@ npm install
 ```
 
 Start the development server:
-For access to the full application, make sure the backend is also available at [http://localhost:3001](http://localhost:3001).
+
+```bash
+npm run dev
+```
+
+Open the frontend at [http://localhost:3000](http://localhost:3000). For access to the full application, make sure the backend is also available at [http://localhost:3001](http://localhost:3001).
 
 ## Available Scripts
 
@@ -48,6 +60,26 @@ For access to the full application, make sure the backend is also available at [
 | Super admin | `/super/dashboard`, `/super/schools` |
 
 Protected routes require a valid authentication token. The middleware redirects users to the dashboard for their role and prevents access to areas they are not authorized to view.
+
+## Frontend
+
+Run the frontend locally at [http://localhost:3000](http://localhost:3000). It is also available online in https://crack-fe-setiawanhennie-glitch-768jug6g8-hennie-s-projects.vercel.app/
+
+## Screenshots
+
+The repository currently includes the following visual asset, which includes:
+1. The Homepage
+![NusaSkillz homepage](Homepage.JPG)
+
+2. Admin Dashboard Overview
+![NusaSkillz Admin dashboard](Admin_dashboard.JPG)
+
+3. Teacher Dashboard Overview
+![NusaSkillz Teacher dashboard](Teacher_dashboard.JPG)
+
+4. Student Dashboard Overview
+![NusaSkillz Student dashboard](student_dashboard.JPG)
+
 ## Project Structure
 
 ```text
