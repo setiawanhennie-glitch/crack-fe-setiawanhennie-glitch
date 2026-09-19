@@ -80,6 +80,11 @@ The repository currently includes the following visual asset, which includes:
 4. Student Dashboard Overview
 ![NusaSkillz Student dashboard](student_dashboard.jpg)
 
+
+## ERD Diagram
+Relational ERD diagram of the databse is as shown below.
+![NusaSkillz ERD diagram](ERD_diagram.png)
+
 ## Project Structure
 
 ```text
