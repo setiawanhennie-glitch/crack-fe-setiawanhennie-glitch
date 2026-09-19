@@ -69,21 +69,20 @@ Run the frontend locally at [http://localhost:3000](http://localhost:3000). It i
 
 The repository currently includes the following visual asset, which includes:
 1. The Homepage
-![NusaSkillz homepage](Homepage.jpg)
+![NusaSkillz homepage](public/Homepage.JPG)
 
 2. Admin Dashboard Overview
-![NusaSkillz Admin dashboard](Admin_dashboard.jpg)
+![NusaSkillz Admin dashboard](public/Admin_dashboard.JPG)
 
 3. Teacher Dashboard Overview
-![NusaSkillz Teacher dashboard](Teacher_dashboard.jpg)
+![NusaSkillz Teacher dashboard](public/Teacher_dashboard.JPG)
 
 4. Student Dashboard Overview
-![NusaSkillz Student dashboard](student_dashboard.jpg)
-
+![NusaSkillz Student dashboard](public/student_dashboard.JPG)
 
 ## ERD Diagram
-Relational ERD diagram of the databse is as shown below.
-![NusaSkillz ERD diagram](ERD_diagram.png)
+Relational ERD diagram of the database is as shown below.
+![NusaSkillz ERD diagram](public/ERD_diagram.png)
 
 ## Project Structure
 
