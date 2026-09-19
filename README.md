@@ -82,7 +82,7 @@ The repository currently includes the following visual asset, which includes:
 
 ## ERD Diagram
 Relational ERD diagram of the database is as shown below.
-![NusaSkillz ERD diagram](public/ERD_diagram.png)
+![NusaSkillz ERD diagram](public/ERD_diagram2.png)
 
 ## Project Structure
 
