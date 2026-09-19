@@ -69,16 +69,16 @@ Run the frontend locally at [http://localhost:3000](http://localhost:3000). It i
 
 The repository currently includes the following visual asset, which includes:
 1. The Homepage
-![NusaSkillz homepage](Homepage.JPG)
+![NusaSkillz homepage](Homepage.jpg)
 
 2. Admin Dashboard Overview
-![NusaSkillz Admin dashboard](Admin_dashboard.JPG)
+![NusaSkillz Admin dashboard](Admin_dashboard.jpg)
 
 3. Teacher Dashboard Overview
-![NusaSkillz Teacher dashboard](Teacher_dashboard.JPG)
+![NusaSkillz Teacher dashboard](Teacher_dashboard.jpg)
 
 4. Student Dashboard Overview
-![NusaSkillz Student dashboard](student_dashboard.JPG)
+![NusaSkillz Student dashboard](student_dashboard.jpg)
 
 ## Project Structure
 
