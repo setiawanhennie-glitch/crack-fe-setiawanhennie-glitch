@@ -33,7 +33,7 @@ export default function StudentCoursesPage() {
             <div>
               <p className="text-xs font-bold uppercase tracking-wide opacity-80">Misi Harian</p>
               <h3 className="font-heading text-lg font-bold">
-                Selesaikan 1 pelajaran hari ini untuk menjaga streak {stats?.user?.streak ?? 0} hari-mu!
+                Selesaikan 1 pelajaran hari ini untuk menjaga streak harian mu!
               </h3>
             </div>
           </div>
