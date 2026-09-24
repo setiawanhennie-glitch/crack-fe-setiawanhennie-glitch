@@ -66,12 +66,14 @@ export default function DashboardPage() {
   const user = stats.user;
   const courses = stats.courses ?? [];
   const badges = stats.badges ?? [];
+  const leaderboard = stats.leaderboard ?? [];
   const completedLessons = courses.reduce((acc: number, c: any) => acc + (c.done ?? 0), 0);
   const totalLessons = courses.reduce((acc: number, c: any) => acc + (c.total ?? 0), 0);
-  const leaderboard = stats.leaderboard ?? [];
   const continueTarget = courses.find((c: any) => c.nextLessonId);
   const levelBase = (user.level - 1) * 500;
   const levelProgress = Math.min(100, Math.max(0, ((user.xp - levelBase) / 500) * 100));
+  const xpToNext = stats.xpToNext ?? user.level * 500;
+  const totalBadges = stats.totalBadges ?? 0;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 flex flex-col gap-6">
@@ -99,7 +101,7 @@ export default function DashboardPage() {
               <div>
                 <h3 className="text-3xl font-bold font-heading text-white">{user.xp} XP</h3>
                 <p className="text-sm text-white/80">
-                  {Math.max(0, stats.xpToNext - user.xp)} XP lagi ke Level {user.level + 1}
+                  {Math.max(0, xpToNext - user.xp)} XP lagi ke Level {user.level + 1}
                 </p>
               </div>
             </div>
@@ -122,7 +124,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-3 gap-3">
         <StatCard icon="/icons/burn.png" label="Streak Harian" value={`${user.streak} Hari`} tone="accent" />
         <StatCard icon="/icons/open_book.png" label="Pelajaran Selesai" value={`${completedLessons}/${totalLessons}`} tone="primary" />
-        <StatCard icon="/icons/medal.png" label="Lencana" value={`${badges.length}/${stats.totalBadges}`} tone="success" />
+        <StatCard icon="/icons/medal.png" label="Lencana" value={`${badges.length}/${totalBadges}`} tone="success" />
       </div>
 
       {/* Continue Learning */}
@@ -163,13 +165,13 @@ export default function DashboardPage() {
                 <Link href="/student/courses">Lihat Semua</Link>
               </Button>
             </div>
-            {stats.courses.length === 0 ? (
+            {courses.length === 0 ? (
               <p className="py-4 text-center text-sm text-muted-foreground">
                 Belum ada kursus untuk kelasmu — segera hadir! 🎒
               </p>
             ) : (
               <div className="space-y-2">
-                {stats.courses.map((course: any) => {
+                {courses.map((course: any) => {
                   const targetId = course.nextLessonId || course.firstLessonId;
                   return (
                     <Link
@@ -208,13 +210,13 @@ export default function DashboardPage() {
             <h2 className="font-heading text-xl font-bold flex items-center gap-2 mb-6">
               Pencapaian Terbaru
             </h2>
-            {stats.badges.length === 0 ? (
+            {badges.length === 0 ? (
               <p className="text-sm text-muted-foreground">
                 Belum ada lencana. Selesaikan pelajaran dan kuis untuk mendapatkannya!
               </p>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {stats.badges.slice(0, 8).map((b: any) => (
+                {badges.slice(0, 8).map((b: any) => (
                   <div
                     key={b.name}
                     className="group flex flex-col items-center text-center p-4 rounded-2xl bg-secondary/50 border border-border transition-all hover:scale-105 hover:bg-secondary/70 cursor-default"
@@ -242,11 +244,11 @@ export default function DashboardPage() {
                 Sekolahmu
               </span>
             </div>
-            {stats.leaderboard.length === 0 ? (
+            {leaderboard.length === 0 ? (
               <p className="text-sm text-muted-foreground">Belum ada pesaing di sekolahmu. Jadilah yang pertama! 🏆</p>
             ) : (
               <div className="space-y-3">
-                {stats.leaderboard.map((player: any) => (
+                {leaderboard.map((player: any) => (
                   <div
                     key={player.rank}
                     className={`flex items-center gap-3 p-3 rounded-2xl transition-all ${
