@@ -257,21 +257,24 @@ export default function DashboardPage() {
                         : "hover:bg-secondary/50 hover:translate-x-1"
                     }`}
                   >
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded-full font-bold text-sm ${
-                        player.rank === 1
-                          ? "bg-gradient-to-br from-yellow-400 to-yellow-600 text-white shadow-md"
-                          : player.rank === 2
-                          ? "bg-gradient-to-br from-gray-300 to-gray-500 text-white"
-                          : player.rank === 3
-                          ? "bg-gradient-to-br from-orange-400 to-orange-700 text-white"
-                          : "bg-secondary text-muted-foreground"
-                      } ${player.rank <= 3 ? "scale-110" : ""}`}
-                    >
-                      {player.rank}
-                    </div>
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-xs">
-                      {player.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
+                    <div className="relative shrink-0">
+                      {/* Alphabet bubble */}
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-xs">
+                        {player.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
+                      </div>
+                      <div
+                        className={`absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ring-1 ring-card ${
+                          player.rank === 1
+                            ? "bg-gradient-to-br from-yellow-400 to-yellow-600 text-white shadow-md"
+                            : player.rank === 2
+                            ? "bg-gradient-to-br from-gray-300 to-gray-500 text-white"
+                            : player.rank === 3
+                            ? "bg-gradient-to-br from-orange-400 to-orange-700 text-white"
+                            : "bg-secondary text-muted-foreground"
+                        }`}
+                      >
+                        {player.rank}
+                      </div>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className={`text-sm font-bold truncate ${player.isUser ? "text-primary" : "text-foreground"}`}>
