@@ -4,27 +4,28 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/UI/button";
 import {
-  Flame,
   Zap,
   BookOpen,
   TrendingUp,
   Star,
   ArrowRight,
-  Award,
-  BookOpenCheck,
   type LucideIcon,
+  Icon,
 } from "lucide-react";
+import Image from "next/image";
 import { fetchStudentStats } from "@/lib/auth-client";
 
 type StatTone = "primary" | "accent" | "success";
+type StatIcon = string | LucideIcon;
+const IconCmp = typeof Icon === "string" ? null : Icon;
 
 function StatCard({
-  icon: Icon,
+  icon,
   label,
   value,
   tone,
 }: {
-  icon: LucideIcon;
+  icon: StatIcon;
   label: string;
   value: string | number;
   tone: StatTone;
@@ -34,13 +35,20 @@ function StatCard({
     accent: "bg-orange-500/10 text-orange-600 group-hover:bg-orange-500/20",
     success: "bg-yellow-500/10 text-yellow-600 group-hover:bg-yellow-500/20",
   };
+  const IconCmp = typeof icon === "string" ? null : icon;
   return (
-    <div className="group flex flex-col items-center gap-1.5 rounded-2xl bg-card p-4 text-center ring-1 ring-border transition-all hover:shadow-md hover:-translate-y-0.5 cursor-default">
-      <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${toneClasses[tone]} transition-colors`}>
-        <Icon className="h-5 w-5" />
+    <div className="group relative overflow-hidden rounded-2xl bg-card p-4 pl-14 text-left ring-1 ring-border transition-all hover:shadow-md hover:-translate-y-0.5 cursor-default">
+      <div className={`absolute -left-4 top-1/2 -translate-y-1/2 flex h-16 w-16 items-center justify-center rounded-full ${toneClasses[tone]} transition-transform group-hover:scale-105`}>
+        {typeof icon === "string" ? (
+          <Image src={icon} alt="" width={28} height={28} className="h-10 w-10 object-contain" />
+        ) : IconCmp ? (
+          <IconCmp className="h-7 w-7" />
+        ) : null}
       </div>
-      <p className="font-heading text-xl font-extrabold leading-none">{value}</p>
-      <p className="text-xs text-muted-foreground">{label}</p>
+      <div className="flex flex-col min-w-0">
+        <p className="font-heading text-xl font-extrabold leading-tight tabular-nums">{value}</p>
+        <p className="text-xs text-muted-foreground">{label}</p>
+      </div>
     </div>
   );
 }
@@ -52,8 +60,7 @@ export default function DashboardPage() {
     fetchStudentStats().then(setStats).catch(console.error);
   }, []);
 
-  // 🛡️ Stop rendering here while data loads — fixes the SSR null crash
-  if (!stats) {
+  if (!stats || !stats.user) {
     return (
       <div className="mx-auto flex max-w-6xl items-center justify-center px-4 py-24">
         <p className="animate-pulse text-muted-foreground">Memuat petualanganmu...</p>
@@ -61,9 +68,13 @@ export default function DashboardPage() {
     );
   }
 
-  // Below this line, `stats` is guaranteed non-null ✅
   const user = stats.user;
-  const continueTarget = stats.courses.find((c: any) => c.nextLessonId);
+  const courses = stats.courses ?? [];
+  const badges = stats.badges ?? [];
+  const completedLessons = courses.reduce((acc: number, c: any) => acc + (c.done ?? 0), 0);
+  const totalLessons = courses.reduce((acc: number, c: any) => acc + (c.total ?? 0), 0);
+  const leaderboard = stats.leaderboard ?? [];
+  const continueTarget = courses.find((c: any) => c.nextLessonId);
   const levelBase = (user.level - 1) * 500;
   const levelProgress = Math.min(100, Math.max(0, ((user.xp - levelBase) / 500) * 100));
 
@@ -83,7 +94,12 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <div className="animate-float flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm text-white">
-                <Zap className="h-7 w-7" />
+                <Image
+                  src="/icons/lightning.png"
+                  alt=""
+                  width={32}
+                  height={32}
+                />
               </div>
               <div>
                 <h3 className="text-3xl font-bold font-heading text-white">{user.xp} XP</h3>
@@ -109,9 +125,9 @@ export default function DashboardPage() {
 
       {/* Stat row */}
       <div className="grid grid-cols-3 gap-3">
-        <StatCard icon={Flame} label="Streak Harian" value={`${user.streak} Hari`} tone="accent" />
-        <StatCard icon={BookOpenCheck} label="Pelajaran Selesai" value={`${stats.completedLessons}/${stats.totalLessons}`} tone="primary" />
-        <StatCard icon={Award} label="Lencana" value={`${stats.badges.length}/${stats.totalBadges}`} tone="success" />
+        <StatCard icon="/icons/burn.png" label="Streak Harian" value={`${user.streak} Hari`} tone="accent" />
+        <StatCard icon="/icons/open_book.png" label="Pelajaran Selesai" value={`${completedLessons}/${totalLessons}`} tone="primary" />
+        <StatCard icon="/icons/medal.png" label="Lencana" value={`${badges.length}/${stats.totalBadges}`} tone="success" />
       </div>
 
       {/* Continue Learning */}

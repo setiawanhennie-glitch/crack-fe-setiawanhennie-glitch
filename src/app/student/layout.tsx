@@ -10,14 +10,18 @@ import DarkModeToggle from "@/components/UI/darkmodetoggle";
 
 export default function StudentLayout({ children }: { children: React.ReactNode }) {
   const [name, setName] = useState("Murid");
+  const [className, setClassName] = useState("-");
   const pathname = usePathname();
 
   useEffect(() => {
     const stored = localStorage.getItem("user");
-    if (stored) setName(JSON.parse(stored).name || "Murid");
+    if (stored) {
+      const user = JSON.parse(stored);
+      setName(user.name || "Murid");
+      setClassName(user.className || user.class || "-");
+    }
   }, []);
 
-  // Quiz/lesson player is fullscreen — no navbar there
   if (pathname.startsWith("/student/lesson")) return <>{children}</>;
 
   return (
@@ -37,11 +41,16 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
             <div className="hidden sm:flex items-center gap-2 text-sm font-medium">
               <div className="relative ml-auto flex items-center gap-2">
                  <DarkModeToggle />
+                    <div className="text-right">
+                      <p className="text-sm font-bold font-heading">{name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Murid • Kelas {className || "-"}
+                      </p>
+                    </div>
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary font-bold">
                   {name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
                 </div>
               </div>
-              <span>{name}</span>
             </div>
             <Button variant="ghost" size="sm" onClick={logout}>
               <LogOut className="h-4 w-4 mr-2" />
