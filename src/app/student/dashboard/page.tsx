@@ -4,10 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/UI/button";
 import {
-  Zap,
-  BookOpen,
-  TrendingUp,
-  Star,
   ArrowRight,
   type LucideIcon,
   Icon,
@@ -17,7 +13,6 @@ import { fetchStudentStats } from "@/lib/auth-client";
 
 type StatTone = "primary" | "accent" | "success";
 type StatIcon = string | LucideIcon;
-const IconCmp = typeof Icon === "string" ? null : Icon;
 
 function StatCard({
   icon,
@@ -162,7 +157,6 @@ export default function DashboardPage() {
           <div className="rounded-3xl bg-card p-6 shadow-sm ring-1 ring-border">
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-heading text-xl font-bold flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-primary" />
                 Kursusmu
               </h2>
               <Button asChild variant="ghost" size="sm" className="text-sm">
@@ -212,7 +206,6 @@ export default function DashboardPage() {
           {/* Badges */}
           <div className="rounded-3xl bg-card p-6 shadow-sm ring-1 ring-border">
             <h2 className="font-heading text-xl font-bold flex items-center gap-2 mb-6">
-              <Star className="h-5 w-5 text-yellow-500" />
               Pencapaian Terbaru
             </h2>
             {stats.badges.length === 0 ? (
@@ -243,7 +236,6 @@ export default function DashboardPage() {
           <div className="rounded-3xl bg-card p-6 shadow-sm ring-1 ring-border h-full">
             <div className="flex items-center justify-between mb-6">
               <h2 className="font-heading text-xl font-bold flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
                 Papan Peringkat
               </h2>
               <span className="text-xs font-medium text-muted-foreground bg-secondary px-2 py-1 rounded-full">
